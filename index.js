@@ -31,6 +31,9 @@ function forwarded(req) {
     .split(/ *, */)
     .filter(Boolean)
     .reverse()
+
+  // req.connection.remoteAddress is undefined when using an unix socket,
+  // we use the loopback address in that case
   var socketAddr = req.connection.remoteAddress || '127.0.0.1'
   var addrs = [socketAddr].concat(proxyAddrs)
 
