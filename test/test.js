@@ -9,6 +9,13 @@ describe('forwarded(req)', function () {
   })
 
   it('should work with X-Forwarded-For header', function () {
+    var req = createReq(undefined, {
+      'x-forwarded-for': '10.0.0.2, 10.0.0.1'
+    })
+    assert.deepEqual(forwarded(req), ['127.0.0.1', '10.0.0.1', '10.0.0.2'])
+  })
+
+  it('should include 127.0.0.1 as remote address if it is not defined (unix socket)', function () {
     var req = createReq('127.0.0.1')
     assert.deepEqual(forwarded(req), ['127.0.0.1'])
   })

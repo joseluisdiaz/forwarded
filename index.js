@@ -31,7 +31,7 @@ function forwarded(req) {
     .split(/ *, */)
     .filter(Boolean)
     .reverse()
-  var socketAddr = req.connection.remoteAddress
+  var socketAddr = req.connection.remoteAddress || '127.0.0.1'
   var addrs = [socketAddr].concat(proxyAddrs)
 
   // return all addresses
